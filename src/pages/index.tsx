@@ -1,6 +1,7 @@
 import PageTitle from 'ui/components/data-display/PageTitle/PageTitle';
 import SafeEnvironment from 'ui/components/feedback/SafeEnvironment/SafeEnvironment';
 import UserInformation from 'ui/components/data-display/UserInformation/UserInformation';
+import TextFieldMask from 'ui/components/inputs/TextFieldMask/TextFieldMask';
 
 export default function Home() {
   return (
@@ -12,12 +13,14 @@ export default function Home() {
           'Preencha seu endereço e veja todos os profissionais da sua localidade'
         }
       />
-      <UserInformation
-        name={'Bruno Affonso'}
-        picture={'https://github.com/brunoaffonso.png'}
-        rating={4}
-        description={'Rio de janeiro'}
+
+      <TextFieldMask
+        mask={'99.999-999'}
+        label={'Digite seu CEP'}
+        fullWidth
+        variant={'outlined'}
       />
+
       <UserInformation
         name={'Bruno Affonso'}
         picture={'https://github.com/brunoaffonso.png'}
@@ -28,4 +31,4 @@ export default function Home() {
   );
 }
 
-//Continuar de 16:00 - Aula 2
+//Continuar de 40:00 - Aula 2
