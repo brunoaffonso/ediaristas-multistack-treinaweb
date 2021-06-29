@@ -2,7 +2,12 @@ import PageTitle from 'ui/components/data-display/PageTitle/PageTitle';
 import SafeEnvironment from 'ui/components/feedback/SafeEnvironment/SafeEnvironment';
 import UserInformation from 'ui/components/data-display/UserInformation/UserInformation';
 import TextFieldMask from 'ui/components/inputs/TextFieldMask/TextFieldMask';
-import { Button, Typography, Container } from '@material-ui/core';
+import {
+  Button,
+  Typography,
+  Container,
+  CircularProgress,
+} from '@material-ui/core';
 import {
   FormElementsContainer,
   ProfissionaisContainer,
@@ -11,7 +16,17 @@ import {
 import useIndex from 'data/hooks/pages/useIndex.page';
 
 export default function Home() {
-  const { cep, setCep } = useIndex();
+  const {
+    cep,
+    setCep,
+    cepValido,
+    buscarProfissionais,
+    erro,
+    diaristas,
+    buscaFeita,
+    carregando,
+    diaristasRestantes,
+  } = useIndex();
 
   return (
     <div>
@@ -34,60 +49,69 @@ export default function Home() {
             onChange={(event) => setCep(event.target.value)}
           />
 
-          <Typography color={'error'}>CEP Inválido</Typography>
+          {erro && <Typography color={'error'}>{erro}</Typography>}
 
           <Button
             variant={'contained'}
             color={'secondary'}
             sx={{ width: '220px' }}
+            disabled={!cepValido || carregando}
+            onClick={() => buscarProfissionais(cep)}
           >
-            Buscar
+            {carregando ? <CircularProgress size={20} /> : 'Buscar'}
           </Button>
         </FormElementsContainer>
 
-        <ProfissionaisPaper>
-          <ProfissionaisContainer>
-            <UserInformation
-              name={'Bruno Affonso'}
-              picture={'https://github.com/brunoaffonso.png'}
-              rating={4}
-              description={'Rio de janeiro'}
-            />
-            <UserInformation
-              name={'Bruno Affonso'}
-              picture={'https://github.com/brunoaffonso.png'}
-              rating={4}
-              description={'Rio de janeiro'}
-            />
-            <UserInformation
-              name={'Bruno Affonso'}
-              picture={'https://github.com/brunoaffonso.png'}
-              rating={4}
-              description={'Rio de janeiro'}
-            />
-            <UserInformation
-              name={'Bruno Affonso'}
-              picture={'https://github.com/brunoaffonso.png'}
-              rating={4}
-              description={'Rio de janeiro'}
-            />
-            <UserInformation
-              name={'Bruno Affonso'}
-              picture={'https://github.com/brunoaffonso.png'}
-              rating={4}
-              description={'Rio de janeiro'}
-            />
-            <UserInformation
-              name={'Bruno Affonso'}
-              picture={'https://github.com/brunoaffonso.png'}
-              rating={4}
-              description={'Rio de janeiro'}
-            />
-          </ProfissionaisContainer>
-        </ProfissionaisPaper>
+        {buscaFeita &&
+          (diaristas.length > 0 ? (
+            <ProfissionaisPaper>
+              <ProfissionaisContainer>
+                <UserInformation
+                  name={'Bruno Affonso'}
+                  picture={'https://github.com/brunoaffonso.png'}
+                  rating={4}
+                  description={'Rio de janeiro'}
+                />
+                <UserInformation
+                  name={'Bruno Affonso'}
+                  picture={'https://github.com/brunoaffonso.png'}
+                  rating={4}
+                  description={'Rio de janeiro'}
+                />
+                <UserInformation
+                  name={'Bruno Affonso'}
+                  picture={'https://github.com/brunoaffonso.png'}
+                  rating={4}
+                  description={'Rio de janeiro'}
+                />
+                <UserInformation
+                  name={'Bruno Affonso'}
+                  picture={'https://github.com/brunoaffonso.png'}
+                  rating={4}
+                  description={'Rio de janeiro'}
+                />
+                <UserInformation
+                  name={'Bruno Affonso'}
+                  picture={'https://github.com/brunoaffonso.png'}
+                  rating={4}
+                  description={'Rio de janeiro'}
+                />
+                <UserInformation
+                  name={'Bruno Affonso'}
+                  picture={'https://github.com/brunoaffonso.png'}
+                  rating={4}
+                  description={'Rio de janeiro'}
+                />
+              </ProfissionaisContainer>
+            </ProfissionaisPaper>
+          ) : (
+            <Typography align={'center'} color={'textPrimary'}>
+              Ainda não temos nenhuma diarista disponível na sua região
+            </Typography>
+          ))}
       </Container>
     </div>
   );
 }
 
-//Continuar de 1:27:00 - Aula 2
+//Continuar de 1:49:00 - Aula 2
